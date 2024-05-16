@@ -5,17 +5,18 @@ import {
   calculateImperialBMI,
   calcMetricBMR,
 } from "./utils/bmi";
+import Result from "./components/Result";
 
 function App() {
-  const [results, setResults] = useState(false);
+  const [results, setResults] = useState(null);
   const [imperialUnits, setImperialUnits] = useState(false);
   const [formData, setFormData] = useState({
     gender: "female",
-    age: 0,
-    weight: 0,
-    height: 0,
-    ft: 0,
-    inches: 0,
+    age: null,
+    weight: null,
+    height: null,
+    ft: null,
+    inches: null,
     activity: 1.375,
     goal: -500,
   });
@@ -26,10 +27,10 @@ function App() {
       formData;
 
     if (imperialUnits) {
-      const bmi = calculateImperialBMI(weight, inches, ft);
+      const bmi = calculateImperialBMI(weight, inches, height);
       const bmr = calcImperialBMR(
         inches,
-        ft,
+        height,
         weight,
         age,
         activity,
@@ -37,12 +38,12 @@ function App() {
         goal
       );
       console.log(bmr);
+      setResults(bmr);
     } else {
       const bmi = calculateBMI(weight, height);
       const bmr = calcMetricBMR(weight, height, age, activity, gender, goal);
-      // console.log(weight);
+      setResults(bmr);
       console.log(bmr);
-      // console.log(result);
     }
   };
 
@@ -200,7 +201,7 @@ function App() {
                         })
                       }
                     />
-                    <span>lb</span>
+                    <span className="metric-span">lb</span>
                   </div>
                   <div className="input-row">
                     {" "}
@@ -213,10 +214,13 @@ function App() {
                       name="ft"
                       required
                       onChange={(e) =>
-                        setFormData({ ...formData, ft: Number(e.target.value) })
+                        setFormData({
+                          ...formData,
+                          height: Number(e.target.value),
+                        })
                       }
                     />
-                    <span>ft</span>
+                    <span className="metric-span">ft</span>
                   </div>
                   <div className="input-row">
                     <input
@@ -229,7 +233,7 @@ function App() {
                         })
                       }
                     />
-                    <span>in</span>
+                    <span className="metric-span">in</span>
                   </div>
                 </div>
               )}
@@ -331,17 +335,27 @@ function App() {
               </label>
             </div>
 
-            <button type="button" onClick={handleSubmit}>
+            <button
+              type="button"
+              onClick={handleSubmit}
+              disabled={!formData.age || !formData.weight || !formData.height}
+            >
               calculate
             </button>
           </div>
         </div>
         {results && (
-          <div className="results">
-            <div className="result">calories</div>
-            <div className="result">protein</div>
-            <div className="result">fat</div>
-            <div className="result">carbs</div>
+          <div className="results-container">
+            {" "}
+            <label htmlFor="results" className="input-label goals-label">
+              results
+            </label>
+            <div className="results" id="results">
+              <Result title="calories" amount={results.bmr} cal />
+              <Result title="Protein" amount={results.protein} />
+              <Result title="Fat" amount={results.fat} />
+              <Result title="Carbs" amount={results.carbs} />
+            </div>
           </div>
         )}
       </div>

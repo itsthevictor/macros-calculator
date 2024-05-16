@@ -28,7 +28,7 @@ export const getNutrition = (
 
 export const calcImperialBMR = (
   inches,
-  ft,
+  height,
   weight,
   age,
   activity,
@@ -39,7 +39,7 @@ export const calcImperialBMR = (
   gender === "male" ? (s = 5) : (s = -161);
 
   const inchesToCm = IM(inches).from("inch").to("cm"); // 2.54
-  const feetToCm = IM(ft).from("foot").to("cm"); // 2.54
+  const feetToCm = IM(height).from("foot").to("cm"); // 2.54
   const w = weight * 0.453592;
   const h = Math.round(inchesToCm + feetToCm, 0);
   const bmr = (

@@ -199,6 +199,12 @@ button {
   color: white;
 }
 
+button:disabled {
+  background: grey;
+  border: 1px solid grey;
+  cursor: not-allowed;
+}
+
 .activity-levels,
 .goals {
   display: flex;
@@ -207,6 +213,53 @@ button {
 }
 .goals {
   margin-top: -35px;
+}
+
+/* RESULTS */
+
+.results-container {
+  margin-top: 50px;
+  width: 100%;
+}
+
+.results {
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+/* 
+.results > div:first-of-type {
+  padding-left: none !important;
+} */
+.results > div:nth-of-type(2),
+.results > div:nth-of-type(3),
+.results > div:nth-of-type(4) {
+  padding-left: 35px;
+}
+
+.res {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid black;
+}
+
+.res-title {
+  font-size: 2em;
+  text-transform: capitalize;
+}
+.res-amount {
+  font-size: 2em;
+  display: flex;
+  align-items: first baseline;
+  gap: 5px;
+  font-style: italic;
+}
+
+.results .res-unit {
+  position: relative;
+  font-size: 0.5em;
 }
 
 @media only screen and (max-width: 1200px) {
