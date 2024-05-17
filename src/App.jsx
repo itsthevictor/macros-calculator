@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   calcImperialBMR,
   calculateBMI,
@@ -21,8 +21,9 @@ function App() {
     goal: -500,
   });
 
+  const resRef = useRef();
+
   const handleSubmit = () => {
-    console.log(formData);
     const { age, gender, height, weight, inches, ft, activity, goal } =
       formData;
 
@@ -37,17 +38,20 @@ function App() {
         gender,
         goal
       );
-      console.log(bmr);
+      // console.log(bmr);
       setResults(bmr);
     } else {
       const bmi = calculateBMI(weight, height);
       const bmr = calcMetricBMR(weight, height, age, activity, gender, goal);
       setResults(bmr);
-      console.log(bmr);
+
+      // console.log(bmr);
     }
   };
 
-  useEffect(() => {});
+  useEffect(() => {
+    resRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [results]);
 
   return (
     <main>
@@ -350,7 +354,7 @@ function App() {
             <label htmlFor="results" className="input-label goals-label">
               results
             </label>
-            <div className="results" id="results">
+            <div className="results" id="results" ref={resRef}>
               <Result title="calories" amount={results.bmr} cal />
               <Result title="Protein" amount={results.protein} />
               <Result title="Fat" amount={results.fat} />
