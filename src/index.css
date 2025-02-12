@@ -273,7 +273,7 @@ button:disabled {
     width: 80%;
   }
   .calculator {
-    width: 450px;
+    width: 100%;
     display: grid;
     grid-template-columns: 1fr;
     gap: 100px;
