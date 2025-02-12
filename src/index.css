@@ -290,13 +290,13 @@ button:disabled {
   }
 
   .results-container {
-    width: 450px;
+    width: 100%;
     margin: 100px auto;
   }
 
   .results {
     margin: 0 auto;
-    width: 450px;
+    width: 100%;
     flex-direction: column;
     gap: 10px;
   }
